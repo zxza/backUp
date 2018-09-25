@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>vertical-line-height布局</title>
+    <!-- 一个inline-block元素，如果里面没有inline内联元素，或者overflow不是visible，则该元素的基线就是其margin底边缘，否则，其基线就是元素里面最后一行内联元素的基线。 -->
+  </head>
+  <style>
+    .box{
+      font-size: 0;
+      background-color:red;
+    }
+    .imgTest{
+      vertical-align: middle;
+    }
+    .test{
+      display: inline-block;
+      background-color: white;
+      font-size: 14px;
+    }
+
+    .box1{
+      line-height: 240px;
+      font-size: 0;
+      background-color: yellow;
+    }
+    .imgTest1{
+      vertical-align: middle;
+    }
+
+    .dib-baseline {
+      display: inline-block;
+      width: 150px;
+      height: 150px;
+      border: 1px solid #cad5eb;
+      background-color: #f0f3f9;
+    }
+  </style>
+  <body>
+    <div class="box">
+      <img class='imgTest' src="http://image.zhangxinxu.com/image/study/s/s128/mm9.jpg">
+      <span class='test'>zxx</span>
+    </div>
+
+    <div class="box1">
+      <img class="imgTest1" src="http://image.zhangxinxu.com/image/study/s/s128/mm9.jpg">
+    </div>
+
+    <span class="dib-baseline"></span>
+    <span class="dib-baseline">x-baseline</span>
+  </body>
+</html>

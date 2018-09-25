@@ -1,0 +1,40 @@
+<!-- 一、语法：
+<meta name="name" content="string">
+二、参数解析：
+1)name选项：Keywords(关键字)，description(网站内容描述)，author(作者)，robots(机器人向导)等等
+
+2)http-equiv项：可用于代替name项，常用的选项有Expires(期限)，Pragma(cache模式)，Refresh(刷新)，Set-Cookie(cookie设定)，Window-target(显示窗口的设定)，content-Type(显示字符集的设定)等。
+3）content项：根据name项或http-equiv项的定义来决定此项填写什么样的字符串。 -->
+
+1.添加对手机设备的支持
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximun-scale=1,user-salable=no">(禁止缩放)
+
+2.兼容IE
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+
+3.规定utf-8编码
+<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+
+4.让搜索引擎搜索到关键字
+<meta name="keywords" content="网页关键字">
+<meta name="description" content="网页描述文字">
+
+5.设置双核浏览器的浏览模式
+<meta name="renderer" content="webkit">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">(分别为极速模式，兼容模式，以及IE模式)
+
+6.产生特殊效果
+<meta http-equiv="Page-Enter" content="revealTrans(Duration=5.0,Transition=n)">(n的取值范围为0-23)
+
+7.标注作者
+<meta name="author" content="zxza">
+
+8.控制页面缓冲，如不要页面缓冲
+<meta http-equiv="Cache-Control" content="no-cache">
+
+9.让页面每隔一段时间刷新一次，10秒刷新一次
+<meta http-equiv="refresh" content="10">
+
+10.让一个页面过上一定时间，自动转到另一个页面或者站点去
+<meta http-equiv="refresh" content="6;url=http://www.baidu.com">

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>input动态</title>
+    <style media="screen">
+      *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body{
+        background-color: #fff;
+      }
+      .content{
+        padding-left: 45%;
+        margin:0 auto;
+        margin-top: 200px;
+        background-color: #fff;
+      }
+      .box{
+        position: relative;
+        padding-bottom: 20px;
+      }
+      .box label{
+        font-size: 20px;
+        position: absolute;
+        left:0px;
+        bottom:28px;
+        font-family: "宋体";
+        color:#777;
+        cursor: text;
+      }
+      .box input{
+        padding-top: 45px;
+        width:400px;
+        height: 80px;
+        font-size: 20px;
+        border:none;
+        outline: none;
+        border-bottom: 1px solid #c3c3c3;
+        color: red;
+      }
+      .box .bottom-line{
+        position: absolute;
+        width: 0;
+        height: 2px;
+        left:0;
+        bottom: 19px;
+        background-color: red;
+      }
+      .box p {
+        display: none;
+      }
+      .box p.active{
+        display: block;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="detail">
+        <div class="box">
+          <p>账号输入错误</p>
+          <label for="input-first">账号</label>
+          <input type="text" account="input-first" placeholder="" id="account">
+          <div class="bottom-line"></div>
+        </div>
+        <div class="box">
+          <p>密码输入错误</p>
+          <label for="input-first">密码</label>
+          <input type="text" account="input-first" placeholder="" id='passport'>
+          <div class="bottom-line"></div>
+        </div>
+        <div class="box">
+          <p>邮箱输入错误</p>
+          <label for="input-first">邮箱</label>
+          <input type="text" account="input-first" placeholder="" id='email'>
+          <div class="bottom-line"></div>
+        </div>
+        <div class="box">
+          <button type="button" name="button" id='button'>12312312</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript">
+
+  $(function() {
+    var account = $('#account');
+    var accountVal = $('#account').val();
+    var passport = $('#passport');
+    var passportVal = $('#passport').val();
+    var email = $('#email');
+    var emailVal = $('#email').val();
+    function test($obj, inputNum) {
+      if (inputNum.length <=2 || inputNum.length >=128) {
+        $obj.siblings().eq(0).addClass('active');
+        return false;
+      }
+      $obj.siblings().eq(0).removeClass('active');
+      return true;
+    }
+    $('#button').click(function() {
+      var account = $('#account');
+      var accountVal = $('#account').val();
+      var passport = $('#passport');
+      var passportVal = $('#passport').val();
+      var email = $('#email');
+      var emailVal = $('#email').val();
+      if (test(account, accountVal) && test(passport, passportVal) && test(email, emailVal)) {
+        console.log(111)
+      }
+      console.log(22)
+    })
+
+
+    //
+    $("input").focus(function(event) {
+        //label动态上升，升至顶部
+         $(this).siblings("label").stop().animate({"bottom": "50px"}, 500);
+         //div模拟的下边框伸出，其width动态改变至input的width
+         $(this).next(".bottom-line").stop().animate({"width": "400px"}, 500);
+         return false;
+    });
+
+    ////输入框失去焦点时
+      $("#account").blur(function(event) {
+        // var account = $('#account');
+        // var accountVal = $('#account').val();
+        // var passport = $('#passport');
+        // var passportVal = $('#passport').val();
+        // var email = $('#email');
+        // var emailVal = $('#email').val();
+        test(account, accountVal)
+           //label动态下降，恢复原位
+           if ($(this).val() !== '') {
+             return;
+           }
+           $(this).siblings("label").stop().animate({bottom: "20px"}, 500);
+           //用div模拟的下边框缩回，其width动态恢复为默认宽度0
+           $(this).next(".bottom-line").stop().animate({"width": "0"}, 500);
+           return false;
+      });
+      $("#passport").blur(function(event) {
+        // var account = $('#account');
+        // var accountVal = $('#account').val();
+        // var passport = $('#passport');
+        // var passportVal = $('#passport').val();
+        // var email = $('#email');
+        // var emailVal = $('#email').val();
+        test(passport, passportVal)
+           //label动态下降，恢复原位
+           if ($(this).val() !== '') {
+             return;
+           }
+           $(this).siblings("label").stop().animate({bottom: "20px"}, 500);
+           //用div模拟的下边框缩回，其width动态恢复为默认宽度0
+           $(this).next(".bottom-line").stop().animate({"width": "0"}, 500);
+           return false;
+      });
+      $("#email").blur(function(event) {
+        test(email, emailVal)
+           //label动态下降，恢复原位
+           if ($(this).val() !== '') {
+             return;
+           }
+           $(this).siblings("label").stop().animate({bottom: "20px"}, 500);
+           //用div模拟的下边框缩回，其width动态恢复为默认宽度0
+           $(this).next(".bottom-line").stop().animate({"width": "0"}, 500);
+           return false;
+      });
+  });
+
+  </script>
+
+</html>

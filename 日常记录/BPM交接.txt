@@ -1,0 +1,18 @@
+http://bpmdev.royole.local/home/royole/com/royole/factoryservice/repair/xform/DepartmentApproveFeeForm.caf
+    1.必选项的红色※
+    2.填充数据的input框样式、表单校验
+
+图片上传
+    1.数量限制最多5张、5张之后上传按钮消失
+    2.大小限制2M
+    3.图片点击预览、打开新页面、不需要轮播
+    4.支持上传、删除 
+      4.1 删除，金老师提供右上角icon
+    5.页面提示弹窗
+
+审批意见同意时可为空、拒接时不能为空
+
+
+1.满意度调查表
+  1.1增加时间控件 --- 预约维修
+  1.2增加input框 --- 填写费用！！！！

@@ -1,0 +1,131 @@
+9.4 星期二
+
+封装validate函数
+
+
+
+workflow
+
+2577 getPersonalTasks(options)   
+
+    options = getOptionsForWorkflowMethod("GetTasks", "", options, {
+        OrderBy: "Task.StartDate DESC"
+    });
+   
+
+2795 getOptionsForWorkflowMethod(methodName, namespace, options, defaultParameters)
+    options = options || {};
+    var ajaxOptions = $.extend({
+        method: methodName,
+        namespace: namespace || "http://schemas.cordys.com/notification/workflow/1.0"
+    }, options);
+    ajaxOptions.parameters = $.extend(defaultParameters, options.parameters);
+
+    return ajaxOptions
+
+
+543 $.cordys.ajax
+
+
+937 $.cordys.authentication.defaults
+
+
+286 $.cordys.json.findObjects
+
+ $.cordys.json.findObjects(response, "Task")
+
+287 getObj
+
+
+pauseTask
+
+2641 pauseTask
+
+2629 performTaskAction()
+this.performTaskAction = function (task, taskData, action, reason, options) {
+            options = getOptionsForWorkflowMethod("PerformTaskAction", "", options, {
+                TaskId: getTaskId(task),
+                Action: action,
+                Memo: reason,
+                Data: taskData || {}
+            });
+            return $.cordys.ajax(options);
+        };
+
+
+543 $.cordys.ajax
+
+
+937 $.cordys.authentication.defaults
+
+
+286 $.cordys.json.findObjects
+
+ $.cordys.json.findObjects(response, "Task")
+
+287 getObj
+
+
+9.5 星期三
+
+css页面布局
+1.静态布局
+2.自适应布局
+3.流式布局
+4.响应式布局
+5.弹性布局
+
+
+9.6 星期四 300
+
+响应式布局：
+实际项目设置成 font-size: 62.5%可能会出现问题
+因为chrome不支持小于12px的字体，计算小于12px的时候，会默认取12px去计算，导致chrome的em/rem计算不准确。
+
+针对这个现象，可以尝试设置html字体为100px，body 修正为16px
+这样 0.1rem 就是 10px，而body的字体仍然是默认大小，不影响未设置大小的元素的默认字体的大小
+
+9.7 星期五 299
+编译型与解释型语言
+java、js  解释型语言
+
+编译型语言：编译型语言是把源代码先编译为机器码（也就是所谓的可执行程序，比如windows系统的exe文件），运行的时候电脑只需直接把机器码交给CPU执行即可
+解释型语言：
+解释型语言则是直接以源代码的形式出现，运行的时候再实时解析为机器码并执行。
+所有的脚本语言（当然也包括JavaScript）都是解析型语言。
+这类语言有个最大特点就是它们都不能独立存在，必须寄生在其他程序（比如浏览器）内。
+
+jquery插入html到特定位置
+1.插入节点，在该节点的子节点的最后面插入
+    $("#city").append("<li id='shenzhen'>shenzhen</li>");
+2.插入结点：在该节点的子节点的最前面插入
+    $("#major").prepend("<li id='math'>[数学]</li>");
+3.把新创建的节点添加到指定节点之后
+    $("#beijing").after("<li id='shenzhen'>[shenzhen]</li>");
+4.把新创建的节点添加到指定节点之前
+    $("#beijing").before($("<li id='shenzhen'>[shenzhen]</li>"));
+
+
+文字节点不换行、缩进变成三个点
+父级：
+    white-space: nowrap;
+子级：
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 90%;
+
+
+js加法运算
+
+当字符串与数字相加的时候、自动会转换为字符串
+需要用parseInt把字符串改为数字
+
+'1' + 1 = '11';
+parseInt('2') + 1 = 3;
+
+
+
+
+
+
+

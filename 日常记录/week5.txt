@@ -1,0 +1,35 @@
+2018.9.17 星期一
+img是行内元素
+
+2018.9.18 星期二
+css定位问题：relative、absolute
+相对定位的元素是会占据文档流空间的
+绝对定位的元素会脱离文档流
+只有绝对定位absolute和浮动float才会脱离文档流！
+
+使用float脱离文档流时，其他盒子会无视这个元素，但其他盒子内的文本依然会为这个元素让出位置，环绕在周围(可以说是部分无视)
+
+float定位问题：
+1.浮动元素会被自动设置成块级元素，相当于给元素设置了display:block
+2.浮动元素后边的元素若是非浮动行内元素且因为定位产生重叠时，行内元素边框、背景和内容都在该浮动元素“之上”显示，
+  若是非浮动块级元素跟在浮动元素后边且在定位后产生重叠时，该块级元素边框和背景在该浮动元素“之下”显示，只有内容在浮动元素不在浮动元素“之下”显示
+
+
+2018.9.19 星期三
+tab切换的原理是根据 wx:if 或者 hidden 来控制视图的显示和隐藏，页面的data中设置一个变量currentTab来记录当前点击的是哪个tab，每次点击的时候更新currentTab的值
+
+控制组件显示隐藏可以用 wx:if 也可以用 hidden。两者是区别是如果用 wx:if ，每次切换tab的时候组件都会重新渲染，生命周期方法会重新调用执行。而用 hidden则不会重新渲染，生命周期函数也不会重新调用
+
+自定义微信小程序tab栏，可以通过嵌套component
+然后通过wx:if 或者 hidden 来控制视图的显示和隐藏,hidden不会重新触发生命周期的渲染
+
+components要在json文件中注明：”component”: true
+{
+  "component": true,
+  "usingComponents": {
+    "movie": "movie/movie",
+    "music": "music/music"
+  }
+}
+
+component生命周期包含properties，data，methods

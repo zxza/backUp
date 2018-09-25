@@ -1,0 +1,297 @@
+8.28 周二
+
+学习ES6之 - Decorator 修饰器
+1.用于给对象在运行期间动态的增加某个功能，职责
+2.所以，装饰器的作用： 
+- 是继承关系的一种替代 
+- 动态的类添加额外的功能 
+- 在不改变接口的前提下，增强类的性能
+3.1类的修饰
+许多面向对象的语言都有修饰器（Decorator）函数，用来修改类的行为
+修饰器对类的行为的改变，是代码编译时发生的，而不是在运行时。这意味着，修饰器能在编译阶段运行代码。也就是说，修饰器本质就是编译时执行的函数
+类的修饰器函数的第一个参数 target 指向类本身
+
+@testable
+class MyTestableClass {
+  // ...
+}
+
+function testable(target) {
+  target.isTestable = true;
+}
+
+MyTestableClass.isTestable // true
+
+3.2 给类的实例增加属性
+如果想添加实例属性，可以通过目标类的 prototype 对象操作
+function testable(target){
+  target.prototype.isTestable = true;
+}
+
+@testable 
+class MyTestableClass {
+  // ...
+}
+
+let obj = new MyTestableClass();
+obj.isTestable; // true
+
+3.3 方法的修饰
+类的方法的修饰器函数的第一个参数 target 指向类的原型对象
+这是因为类中的方法，实际上是作用于实例对象上的
+
+class Person {
+  @readonly
+  getName() { return `${this.first} ${this.last}` }
+}
+
+function readonly(target, name, descriptor) {
+  // descriptor对象原来的值如下：
+  // {
+  //   value: specifiedFunction,
+  //   enumerable: false,
+  //   configurable: true,
+  //   writable: true
+  // }
+  descriptor.writable = false;
+  return descriptor;
+}
+
+第一个参数是类的原型对象，第二个参数是所要修饰的属性名，本例中为 getName() 函数， 第三个参数为该属性的描述对象
+
+
+class Math {
+  @log
+  add(a, b) {
+    return a + b;
+  }
+
+  function log(target, name, descriptor) {
+    // 保存旧的方法add
+    const oldValue = descriptor.value; 
+
+    descriptor.value = function() {
+      // 输出日志
+      console.log(`Calling ${name} with`, arguments);
+      return oldValue.apply(this, arguments);
+    };
+
+    // 必须返回descriptor对象
+    return descriptor;
+  }
+}
+
+let math = new Math();
+math.add(1, 2);
+
+@log 修饰器的作用就是在执行原始的操作之前，执行一次 console.log ，从而达到输出日志的目的
+
+
+为什么修饰器不能用于函数？
+修饰器只能用于类和类的方法，不能用于函数，因为存在函数提升。
+类是不会提升的，所以就没有这方面的问题
+
+
+8.29 周三
+
+_decorators.js
+export function mutation(target, name, descriptor) {
+    let method = descriptor.value
+    target.mutations = target.mutations || {}
+    if (target.mutations[name]) {
+        console.warn(`vuex Mutation 声明重名===>${name}`)
+    }
+    target.mutations[name] = (state, playload, cb) => {
+        return method.call(target, state, playload, this, cb)
+    }
+}
+
+export function action(target, name, descriptor) {
+    let method = descriptor.value
+    target.actions = target.actions || {}
+    if (target.actions[name]) {
+        console.warn(`vuex Action 声明重名===>${name}`)
+    }
+    target.actions[name] = (context, playload, cb) => {
+        return method.call(target, context, playload, this, cb)
+    }
+}
+
+export function getter(target, name, descriptor) {
+    let method = descriptor.value
+    target.getters = target.getters || {}
+    if (target.getters[name]) {
+        console.warn(`vuex Getter 声明重名===>${name}`)
+    }
+    target.getters[name] = method
+}
+
+
+横屏滚动必备css   white-space ： nowrap
+  normal: 正常无变化(默认处理方式.文本自动处理换行.假如抵达容器边界内容会转到下一行)
+  pre: 保持HTML源代码的空格与换行,等同与pre标签
+  nowrap: 强制文本在一行,除非遇到br换行标签
+  pre-wrap: 同pre属性,但是遇到超出容器范围的时候会自动换行
+  pre-line: 同pre属性,但是遇到连续空格会被看作一个空格
+  inherit: 继承
+
+CSS中hover改变子元素和其它元素样式
+
++表示下一级元素，>表示子元素
+
+#a {color : #FFFF00;}
+ 
+    #a:hover + #c{color : #00FF00;}
+    #a:hover + #c > #b{color : #0000FF;}
+
+table中给tr设置border-bottom无效
+解决方法：
+
+将tr所在table的css样式border-collapse设置为 collapse；
+
+比如：
+
+table{border-collapse: collapse;}
+
+table tr{border-bottom:solid 1px #d0dee5;}
+
+
+
+8.30 周四
+
+左边固定，右边自适应布局
+思路: 
+1.利用了block水平的元素宽度能随父容器调节的流动特性
+2.另外一种思路是利用CSS中的calc()方法来动态设定宽度
+3.利用CSS中的新型布局flex layout与grid layout
+
+1.左边固定，右边自适应布局
+
+1.float+margin-left方案
+.wrapper-float{overflow: hidden}; 
+.warpper-float .left{float: left;width: 150px;}; 
+.warpper-float .right{margin-left: 150px};
+
+
+2.双inline-block 方案  
+.wrapper-inline-block {
+    box-sizing: content-box;
+    font-size: 0;    // 消除空格的影响
+}
+
+.wrapper-inline-block .left,
+.wrapper-inline-block .right {
+    display: inline-block;
+    vertical-align: top;    // 顶端对齐
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.wrapper-inline-block .right {
+    width: calc(100% - 140px);
+}
+
+3.双float方案
+由于浮动的block元素在有空间的情况下会依次紧贴，排列在一行，所以无需设置display: inline-block;，自然也就少了顶端对齐，空格字符占空间等问题
+.wrapper-double-float {
+    overflow: auto;        // 清除浮动
+    box-sizing: content-box;
+}
+
+.wrapper-double-float .left,
+.wrapper-double-float .right {
+    float: left;
+    box-sizing: border-box;
+}
+
+.wrapper-double-float .right {
+    width: calc(100% - 140px);
+}
+
+4.使用absolute+margin-left方法
+让两个block排列到一起的方法是对左侧盒子使用position: absolute的绝对定位。这样，右侧盒子也能无视掉它
+.wrapper-absolute .left {
+    position: absolute;
+}
+
+.wrapper-absolute .right {
+    margin-left: 150px;
+}
+没有清除浮动的方法，若左侧盒子高于右侧盒子，就会超出父容器的高度。因此只能通过设置父容器的min-height来放置这种情况。
+
+5.使用float+BFC方法
+这个方案同样是利用了左侧浮动，但是右侧盒子通过overflow: auto;形成了BFC，因此右侧盒子不会与浮动的元素重叠。
+.wrapper-float-bfc {
+    overflow: auto;
+}
+
+.wrapper-float-bfc .left {
+    float: left;
+    margin-right: 20px;
+}
+
+.wrapper-float-bfc .right {
+    margin-left: 0;
+    overflow: auto;
+}
+
+6.flex方案
+flex容器的一个默认属性值:align-items: stretch;。这个属性导致了列等高的效果。
+为了让两个盒子高度自动，需要设置: align-items: flex-start;
+.wrapper-flex {
+    display: flex;
+    align-items: flex-start;
+}
+
+.wrapper-flex .left {
+    flex: 0 0 auto;
+}
+
+.wrapper-flex .right {
+    flex: 1 1 auto;
+}
+
+7.grid方案
+grid布局也有列等高的默认效果。需要设置: align-items: start;
+grid布局还有一个值得注意的小地方和flex不同:在使用margin-left的时候，grid布局默认是box-sizing设置的盒宽度之间的位置。而flex则是使用两个div的border或者padding外侧之间的距离
+
+.wrapper-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    align-items: start;
+}
+
+.wrapper-grid .left,
+.wrapper-grid .right {
+    box-sizing: border-box;
+}
+
+.wrapper-grid .left {
+    grid-column: 1;
+}
+
+.wrapper-grid .right {
+    grid-column: 2;
+}
+
+
+
+table 里面的元素可以向下滚动
+
+在table元素的外层增加一个div
+div{
+    max-height: 400px;
+    overflow: auto;
+}
+
+一般设置overflow以及max-height即可
+
+去除微信小程序滚动滚动条
+
+::-webkit-scrollbar
+{
+width: 0;
+height: 0;
+color: transparent;
+}
+

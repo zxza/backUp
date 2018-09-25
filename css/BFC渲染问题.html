@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>BFC渲染问题</title>
+  </head>
+  <style media="screen">
+    *,body{margin:0;padding:0}
+    .father{
+      width: 200px;
+      height: 200px;
+      background-color: blue;
+      /* overflow: hidden; */
+    }
+    .son{
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      margin-top: 50px;
+    }
+    /* 我们可以用CSS为container容器附加上述条件,如overflow: scroll, overflow: hidden, display: flex, float: left, or display: table.
+    尽管这些条件都能形成一个BFC，但是它们各自却有着不一样的表现：
+
+    display: table : 在响应式布局中会有问题
+
+    overflow: scroll : 可能会出现你不想要的滚动条
+
+    float: left: 使元素左浮动，并且其他元素对其环绕
+
+    overflow: hidden: 消除溢出部分
+
+    这么看来，建立BFC的最好方式莫过于overflow:hidden了：
+
+    .container {
+      overflow: hidden;
+    } */
+
+
+    /* .box{
+      background-color: red;
+      color: green;
+    }
+    .box-son{
+      float: left;
+      width: 100px;
+      height: 100px;
+    } */
+
+    .left{
+      width: 100px;
+      height: 100px;
+      float: left;
+      background-color: red;
+    }
+    .right{
+      height: 100px;
+      background-color: green;
+      overflow: hidden;
+    }
+  </style>
+  <body>
+    <!-- margin重叠 -->
+    <div class="father">
+      <div class="son">
+      </div>
+    </div>
+    <!-- float浮动清除 -->
+    <!-- <div class="box">
+      <p class="box-son">111111111</p>
+    </div> -->
+
+    <!-- 两栏自适应布局 -->
+    <div class="wrapper">
+      <div class="left">
+        left
+      </div>
+      <div class="right">
+        right
+      </div>
+    </div>
+  </body>
+</html>

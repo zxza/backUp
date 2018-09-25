@@ -1,0 +1,43 @@
+1.async函数就是koa的中间件，正是中间件的扩展性才使得koa的代码简单灵活
+const Koa = require('koa');
+const app = new Koa();
+
+app.use(async (ctx, next) => {
+    await next();
+    ctx.body = 'Hello World';
+})
+
+ctx约定了一个中间件的存储空间ctx.state,通过ctx.state可以储存一些数据
+koa-views这些渲染view层的中间件也会默认把ctx.state里面的属性作为view的上下文传入
+使用webpack打包的话可以使用中间件将加载资源的方法作为ctx.state的属性传入到view层使之获取资源路径
+
+中间件是按照顺序执行的
+路由执行顺序也是一样,因为都是通过中间件实现,所以路由的话应该把,容易匹配到的放在后面
+
+
+监听vuex的state的变化，先从computed监听state属性，然后用watch监听其变化所执行的动作
+    computed: {
+      emailTag() {
+        return this.$store.state.email;
+      }
+    },
+     watch: {
+      emailTag: function(){
+        if (this.$store.state.email) {
+          this.emailBoxShow();
+        }
+      }
+    }
+
+对象结构赋值默认写法
+function move({x = 0, y = 0} = {}) {
+   return [x, y];
+}
+
+function move({x, y} = { x: 0, y: 0 }) {
+    return [x, y];
+}
+只能单独获取属性然后拼接成对象
+
+
+

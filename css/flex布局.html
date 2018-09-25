@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>flex布局</title>
+  </head>
+  <style media="screen">
+    *,body{
+      padding: 0;
+      margin: 0;
+    }
+    .dad{
+      display: flex;
+      height: 600px;
+      background-color: red;
+    }
+    .son-1,.son-2,.son-3{
+      margin: 10px;
+      width: 100px;
+      height: 100px;
+      background-color: green;
+    }
+    .son-2{
+      flex-shrink: 1;
+      width: 100%;
+    }
+    .son-3{
+      flex-shrink: 2;
+      width: 100%;
+      height: 120px;
+    }
+
+  </style>
+  <body>
+    <div class="dad">
+      <div class="son-1">
+
+      </div>
+      <div class="son-2">
+
+      </div>
+      <div class="son-3">
+
+      </div>
+    </div>
+  </body>
+</html>

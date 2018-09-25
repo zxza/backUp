@@ -1,0 +1,90 @@
+9.10  297 星期一
+getBoundingClientRect();
+
+
+viewport
+
+
+物理像素
+独立像素:css中的px就可以看做是设备的独立像素
+
+devicePixelRatio = 物理像素/独立像素
+在Retina屏的iphone上，devicePixelRatio的值为2，也就是说1个css像素相当于2个物理像素
+
+layout viewport   document.documentElement.clientWidth
+visual viewport   浏览器可视区域的大小   window.innerWidth
+ideal  viewport   所有的iphone的ideal viewport宽度都是320px，无论它的屏幕宽度是320还是640，也就是说，在iphone中，css中的320px就代表iphone屏幕的宽度
+
+移动设备默认的viewport是layout viewport
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+该meta标签的作用是让当前viewport的宽度等于设备的宽度
+
+
+<meta name="viewport" content="width=device-width">
+所有浏览器都能把当前的viewport宽度变成ideal viewport的宽度
+
+<meta name="viewport" content="initial-scale=1">
+这句代码也能达到和前一句代码一样的效果，也可以把当前的的viewport变为 ideal viewport
+
+9.11 296 星期二
+
+当js代码执行一段可执行代码时，会创建对应的执行上下文
+
+执行上下文包括：{
+    变量对象(Variable object，VO) : 全局上下文和函数执行上下文
+    作用域链(Scope chain)
+    this
+}
+
+全局上下文中的变量对象就是全局对象;
+函数上下文中，活动对象(activation object, AO)来表示变量对象；
+只有被激活的变量对象，也就是活动对象上的各种属性才能被访问
+
+活动对象是在进入函数上下文时刻被创建的，它通过函数的 arguments 属性初始化。arguments 属性值是 Arguments 对象；
+
+执行上下文、执行过程
+1.进入执行上下文
+2.代码执行
+
+在进入执行上下文时，
+首先会处理函数声明，
+其次会处理变量声明，
+如果如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性
+
+函数的作用域在函数定义的时候就决定了
+
+function bebounce(fn, args) {
+    var timeout;
+
+    return function() {
+        clearTimeout(timeout);
+
+
+    }
+}
+
+//扁平数组
+function flatter(arr) {
+    while (arr.some(item => Array.isArray(item))) {
+        arr = [].concat(...arr);
+    }
+    return arr;
+}
+
+defer '页面加载完再渲染'
+async '下载完就直接渲染'
+
+CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+CommonJS 模块是运行时加载，ES6 模块是编译时输出接口
+
+hasOwnProperty   getPrototypeOf
+
+9.12 295 星期三
+
+box-sizing: content-box --> css标准盒模型
+box-sizing: border-box --> IE盒模型
+
+bootstrap 采用border-box，默认为IE盒模型
+IE8以下不支持box-sizing:border-box;所以，在IE7和IE6下，加一个IE的降级标签：
+<meta http-equiv="X-UA-Compatible" content="IE=edge">

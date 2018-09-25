@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>中间固定宽度，两边自适应布局-浮动加负边距</title>
+  </head>
+  <style media="screen">
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    .wrap{
+      overflow: hidden;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .left{
+      float: left;
+      width: 50%;
+      height: 30px;
+      line-height: 30px;
+      margin-left: -50px;
+    }
+    .middle{
+      float: left;
+      width: 100px;
+    }
+    .right{
+      float: right;
+      width: 50%;
+      height: 30px;
+      line-height: 30px;
+      margin-right: -50px;
+    }
+  </style>
+  <body>
+    <div class="wrap">
+      <div class="left">
+        <hr style="margin-top: 14px">
+      </div>
+      <div class="middle">
+        测试适应
+      </div>
+      <div class="right">
+        <hr style="margin-top: 14px">
+      </div>
+    </div>
+  </body>
+</html>

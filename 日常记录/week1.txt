@@ -1,0 +1,78 @@
+8.19  day1
+vue代码生成不同模块的包 cjs、es、umd
+1.umd 是使得你可以直接使用 <script> 标签引用Vue的模块形式
+2.cjs 形式的模块就是为 browserify 和 webpack 1 提供的，他们在加载模块的时候不能直接加载 ES Module  //CommonJS
+3.webpack2+ 以及 Rollup 是可以直接加载 ES Module 的，所以就有了 es 形式的模块输出 //ES6模块
+
+
+vue追踪四个场景性能:
+1、组件初始化(component init)
+2、编译(compile)，将模板(template)编译成渲染函数
+3、渲染(render)，其实就是渲染函数的性能，或者说渲染函数执行且生成虚拟DOM(vnode)的性能
+4、打补丁(patch)，将虚拟DOM渲染为真实DOM的性能
+
+在火焰图上看到一到三条垂直的虚线。蓝线代表 DOMContentLoaded 事件。 绿线代表首次绘制的时间。 红线代表 load 事件
+
+开发环境：开发环境是程序猿们专门用于开发的服务器，配置可以比较随意， 为了开发调试方便，一般打开全部错误报告。  development 
+测试环境：一般是克隆一份生产环境的配置，一个程序在测试环境工作不正常，那么肯定不能把它发布到生产机上。
+生产环境：是指正式提供对外服务的，一般会关掉错误报告，打开错误日志。 production
+
+其实 mark 和 measure 这两个函数就是对 performance.mark() 和 performance.measure() 的封装
+
+Vue 限定组件的名字由普通的字符和中横线(-)组成，且必须以字母开头
+
+Vue 中 html 标签和部分 SVG 标签被认为是保留的
+
+8.20  day2
+vue prop选项初始化
+prop为数组：
+props: ["someData"]
+
+props: {
+  someData:{
+    type: null
+  }
+}
+
+prop为对象：
+props: {
+  someData1: Number,
+  someData2: {
+    type: String,
+    default: ''
+  }
+}
+
+props: {
+  someData1: {
+    type: Number
+  },
+  someData2: {
+    type: String,
+    default: ''
+  }
+}
+
+在策略函数中通过判断是否存在 vm 就能够得知 mergeOptions 是在实例化时调用(使用 new 操作符走 _init 方法)还是在继承时调用(Vue.extend)
+而子组件的实现方式就是通过实例化子类完成的，子类又是通过 Vue.extend 创造出来的，所以我们就能通过对 vm 的判断而得知是否是子组件了
+
+如果策略函数中拿不到 vm 参数，那么处理的就是子组件的选项
+
+strats.el 和 strats.propsData这两个策略函数只要子选项不是 undefined 那么就是用子选项，否则使用父选项
+
+_init(options) -> $mount -> compile -> render -> vm._update(vm._render(), hydrating) -> vnode -> patch -> DOM
+
+
+8.24   day5
+忽略git上的一些文件的上传，在本地目录新建.gitignore,然后添加对应的文件夹名称以及后缀，就可以忽略文件的上传
+
+表单名称与表单框设置位置宽度100%
+1.表单名称左浮动
+2.表单输入框为100%，然后padding-left为表单名称的宽度。
+
+最后，写在一起，重置input和textarea的默认样式：
+input,button,select,textarea{outline:none}
+textarea{resize:none}
+
+
+
